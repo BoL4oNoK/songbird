@@ -1,0 +1,15 @@
+@import './scss/abstract/constants.scss';
+@import './scss/abstract/mixins.scss';
+
+body {
+  margin: 0;
+  font-family: 'Lato', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 10px;
+}
+
+#root {
+  max-width: 1024px;
+  margin: 0 auto;
+}
