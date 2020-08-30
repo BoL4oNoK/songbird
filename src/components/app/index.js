@@ -27,6 +27,9 @@ export default class App extends Component {
 
     this.birdsData = new BirdController();
 
+    this.randomBirdPlayer = React.createRef();
+    this.birdInfoPlayer = React.createRef();
+
     this.state = {
       score: this.birdsData.getScore(),
       tabsList: this.birdsData.getTabs(),
@@ -72,6 +75,7 @@ export default class App extends Component {
       }
 
       if (checkReply && liIndicator) {
+        this.stopPlayingAudio(this.randomBirdPlayer);
         this.updateIndicatorState(id - 1, correctSpanClass);
       }
 
@@ -92,6 +96,12 @@ export default class App extends Component {
       this.birdsData.newGame();
       this.updateState();
     };
+
+    this.stopPlayingAudio = (ref) => {
+      if (ref.current) {
+        ref.current.audio.current.pause();
+      }
+    };
   }
 
   render() {
@@ -109,14 +119,24 @@ export default class App extends Component {
         !isGameFinished
           ? (
             <>
-              <RandomBird randomBird={randomBird} />
+              <RandomBird
+                randomBird={randomBird}
+                randomPlayerRef={this.randomBirdPlayer}
+                birdPlayerRef={this.birdInfoPlayer}
+                audioPlayerStopFn={this.stopPlayingAudio}
+              />
               <div className="d-flex birds-data">
                 <BirdsList
                   birdslist={birdsList}
                   birdsIndicators={checkedIndicators}
                   onBirdSelect={this.selectBird}
                 />
-                <BirdInfo birdinfo={birdsInfo} />
+                <BirdInfo
+                  birdinfo={birdsInfo}
+                  randomPlayerRef={this.randomBirdPlayer}
+                  birdPlayerRef={this.birdInfoPlayer}
+                  audioPlayerStopFn={this.stopPlayingAudio}
+                />
               </div>
               <NextButton onClick={this.nextLevel} disabled={nextButtonDisabled} />
             </>
