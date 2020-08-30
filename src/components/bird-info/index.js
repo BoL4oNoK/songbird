@@ -24,7 +24,7 @@ const BirdInfo = ({ birdinfo }) => {
           {player}
         </div>
       </div>
-      <p>{description}</p>
+      <p className="bird-info__description">{description}</p>
     </div>
   );
 };
