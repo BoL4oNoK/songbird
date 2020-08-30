@@ -11,10 +11,11 @@ const ScoreResult = ({ score }) => {
   );
 };
 
-const GreatestAnswer = ({ score }) => (
+const GreatestAnswer = ({ score, onNewGameBtnClick }) => (
   <>
     <ScoreResult score={score} />
     <p className="description">Вы истинный знаток птичьих голосов.</p>
+    <button type="button" className="new-game-button" onClick={onNewGameBtnClick}>Сыграть снова</button>
   </>
 );
 
@@ -27,7 +28,7 @@ const GeneralAnswer = ({ score, onNewGameBtnClick }) => (
 
 const ResultWindow = ({ score, onNewGameBtnClick }) => {
   const ResultElement = (score === maxScore)
-    ? <GreatestAnswer score={score} />
+    ? <GreatestAnswer score={score} onNewGameBtnClick={onNewGameBtnClick} />
     : <GeneralAnswer score={score} onNewGameBtnClick={onNewGameBtnClick} />;
 
   return (
